@@ -18,7 +18,7 @@ connectToDB()
 
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3001',  // Your frontend URL
+    origin: 'https://scatch-bag-homefrontend.vercel.app/',  // Your frontend URL
     credentials: true  // Allows cookies to be sent
   }))
 app.use(express.urlencoded({extended:true}))
