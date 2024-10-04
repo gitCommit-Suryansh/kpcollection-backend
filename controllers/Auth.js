@@ -7,7 +7,7 @@ const upload = require("../config/multer-config");
 
 exports.signup = async (req, res) => {
   try {
-    let { name, email, password,street,city,state,postalCode } = req.body;
+    let { name, email, password, street, city, state, postalCode } = req.body;
 
     const existinguser = await usermodel.findOne({ email });
 
@@ -59,9 +59,9 @@ exports.login = async (req, res) => {
         let token = generateToken(user);
         res.cookie("token", token, {
           maxAge: 3600000,
-          sameSite:process.env.NODE_ENV==="production" ? "None" : "Lax",
-          secure:process.env.NODE_ENV==="production",
-          path:"/"
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+          secure: process.env.NODE_ENV === "production",
+          path: "/",
         });
 
         return res
@@ -88,7 +88,7 @@ exports.ownersignup = async (req, res) => {
           }
           let owner = await ownermodel.create({
             name,
-            password:hash,
+            password: hash,
             businessname,
             contact,
             email,
@@ -99,13 +99,15 @@ exports.ownersignup = async (req, res) => {
           let token = generateToken(user);
           res.cookie("token", token, {
             maxAge: 3600000,
-            sameSite: "None",
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            secure: process.env.NODE_ENV === "production",
+            path: "/",
           });
-          return res.status(200).json({ message: "Account created Successfully",token:token });
+          return res
+            .status(200)
+            .json({ message: "Account created Successfully", token: token });
         });
       });
-
-     
     } catch (err) {
       console.log(err);
       res.status(201).json({ message: "error creating account" });
@@ -127,17 +129,21 @@ exports.ownerlogin = async (req, res) => {
 
     // Use async/await for bcrypt.compare
     const isMatch = await bcrypt.compare(password, owner.password);
-    
+
     if (isMatch) {
       let token = generateToken(owner);
 
       // Set a cookie with the token
       res.cookie("token", token, {
-        maxAge: 3600000, // 1 hour
-        sameSite: "None",
+        maxAge: 3600000,
+        sameSite:process.env.NODE_ENV==="production" ? "None" : "Lax",
+        secure:process.env.NODE_ENV==="production",
+        path:"/"
       });
 
-      return res.status(200).json({ message: "Logged In Successfully", token: token });
+      return res
+        .status(200)
+        .json({ message: "Logged In Successfully", token: token });
     } else {
       // Use status 401 for Unauthorized when password doesn't match
       return res.status(401).json({ message: "Invalid credentials" });
@@ -151,7 +157,7 @@ exports.ownerlogin = async (req, res) => {
 exports.updateprofile = async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     let updateFields = {};
     if (req.body.password) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -166,7 +172,9 @@ exports.updateprofile = async (req, res) => {
       return res.status(400).json({ message: "No fields to update" });
     }
 
-    const user = await usermodel.findOneAndUpdate({ _id: id }, updateFields, { new: true });
+    const user = await usermodel.findOneAndUpdate({ _id: id }, updateFields, {
+      new: true,
+    });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -180,12 +188,14 @@ exports.updateprofile = async (req, res) => {
 };
 exports.getprofile = async (req, res) => {
   try {
-    const {id}=req.params
-    const user = await usermodel.findOne({_id:id});
-    
-    return res.status(200).json({ message: "Profile fetched successfully",user });
+    const { id } = req.params;
+    const user = await usermodel.findOne({ _id: id });
+
+    return res
+      .status(200)
+      .json({ message: "Profile fetched successfully", user });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Failed to fetch profile" });
   }
-}
+};
