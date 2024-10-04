@@ -60,6 +60,7 @@ exports.login = async (req, res) => {
         res.cookie("token", token, {
           maxAge: 3600000,
           sameSite: "None",
+          secure:process.env.NODE_ENV==="production"
         });
 
         return res
