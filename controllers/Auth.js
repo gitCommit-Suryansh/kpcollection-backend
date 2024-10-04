@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
         let token = generateToken(user);
         res.cookie("token", token, {
           maxAge: 3600000,
-          sameSite: "lax",
+          sameSite: "None",
         });
 
         return res
@@ -97,7 +97,7 @@ exports.ownersignup = async (req, res) => {
           let token = generateToken(user);
           res.cookie("token", token, {
             maxAge: 3600000,
-            sameSite: "lax",
+            sameSite: "None",
           });
           return res.status(200).json({ message: "Account created Successfully",token:token });
         });
@@ -132,7 +132,7 @@ exports.ownerlogin = async (req, res) => {
       // Set a cookie with the token
       res.cookie("token", token, {
         maxAge: 3600000, // 1 hour
-        sameSite: "lax",
+        sameSite: "None",
       });
 
       return res.status(200).json({ message: "Logged In Successfully", token: token });
