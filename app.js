@@ -16,10 +16,16 @@ const orderroutes=require('./routes/order')
 connectToDB()
 
 
-app.use(cors({
-    origin: 'https://scatch-bag-homefrontend.vercel.app',  // Your frontend URL
-    credentials: true  // Allows cookies to be sent
-  }))
+const corsOptions = {
+  origin: 'https://scatch-bag-homefrontend.vercel.app',  // Your frontend URL
+  credentials: true  // Allows cookies to be sent
+};
+
+// Enable CORS for all routes
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,'public')))
