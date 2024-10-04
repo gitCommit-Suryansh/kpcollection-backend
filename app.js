@@ -26,15 +26,24 @@ app.use(cors(corsOptions));
 
 // Handle preflight requests
 app.options('*', cors(corsOptions));
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-app.use(express.static(path.join(__dirname,'public')))
+
+// Middleware for parsing JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware for parsing cookies
 app.use(cookieparser());
+
+// Session management middleware
 app.use(expressSession({
-    resave:false,
-    saveUninitialized:false,
-    secret:process.env.EXPRESS_SESSION_SECRET
-}))
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.EXPRESS_SESSION_SECRET
+}));
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/auth',authroutes)
 app.use('/owner',ownerroutes)
