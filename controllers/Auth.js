@@ -52,28 +52,33 @@ exports.login = async (req, res) => {
 
     let user = await usermodel.findOne({ email });
     if (!user) {
-      return res.status(301).json({ message: "Invalid email or password" });
+      return res.status(401).json({ message: "Invalid email or password" }); // Use 401 for unauthorized
     }
+
     bcrypt.compare(password, user.password, (err, result) => {
       if (result) {
         let token = generateToken(user);
+
+        // Set the cookie with proper attributes
         res.cookie("token", token, {
-          maxAge: 3600000,
-          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-          secure: process.env.NODE_ENV === "production",
+          maxAge: 3600000, // 1 hour
+          httpOnly: true, // Prevents JavaScript access to cookies
+          secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-origin cookies in production
         });
 
         return res
           .status(200)
           .json({ message: "Logged In Successfully", token: token });
       } else {
-        return res.status(201).json({ message: "Incorrect Email Or Password" });
+        return res.status(401).json({ message: "Incorrect Email Or Password" });
       }
     });
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.ownersignup = async (req, res) => {
   const { name, email, password, businessname, contact, gstin } = req.body;
