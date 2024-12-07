@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
         // Set the cookie with proper attributes
         res.cookie("token", token, {
           maxAge: 3600000, // 1 hour
-          httpOnly: true, // Prevents JavaScript access to cookies
+          httpOnly: false, // Prevents JavaScript access to cookies
           secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
           sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-origin cookies in production
         });
