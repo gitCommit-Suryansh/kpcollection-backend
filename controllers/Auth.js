@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
           httpOnly: false, // Prevents JavaScript access to cookies
           secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
           sameSite:"None", // Cross-origin cookies in production,
-          domain:"https://scatch-backend.onrender.com",
+          domain:"https://scatch-frontend.vercel.app",
           path:'/'
         });
 
