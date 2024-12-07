@@ -63,12 +63,13 @@ exports.login = async (req, res) => {
         // Set the cookie with proper attributes
         res.cookie("token", token, {
           maxAge: 3600000, // 1 hour
-          httpOnly: false, // Prevents JavaScript access to cookies
-          secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
-          sameSite:"None", // Cross-origin cookies in production,
-          domain:"https://scatch-frontend.vercel.app",
-          path:'/'
+          httpOnly: false, // Allow JavaScript access to the cookie
+          secure: true, // Ensure the cookie is only sent over HTTPS
+          sameSite: "None", // Allow cross-origin requests
+          domain: ".vercel.app", // Set the domain to your frontend's base domain
+          path: "/", // Cookie will be sent with all requests
         });
+        
 
         return res
           .status(200)
