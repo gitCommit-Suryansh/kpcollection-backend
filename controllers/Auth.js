@@ -55,9 +55,10 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" }); // Use 401 for unauthorized
     }
 
-    bcrypt.compare(password, user.password, (err, result) => {
+    bcrypt.compare(password, user.password, async (err, result) => {
       if (result) {
-        let token = generateToken(user);
+        let token =generateToken(user);
+        console.log(token)
 
         // Set the cookie with proper attributes
         res.cookie("token", token, {
