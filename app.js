@@ -17,7 +17,7 @@ connectToDB()
 
 
 const corsOptions = {
-  origin: ['https://scatch-bag-homefrontend.vercel.app', 'http://localhost:3001'],  // Your frontend URLs
+  origin: ['https://scatch-frontend.vercel.app', 'http://localhost:3001'],  // Your frontend URLs
   credentials: true  // Allows cookies to be sent
 };
 
