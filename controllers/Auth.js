@@ -65,7 +65,9 @@ exports.login = async (req, res) => {
           maxAge: 3600000, // 1 hour
           httpOnly: false, // Prevents JavaScript access to cookies
           secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
-          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-origin cookies in production
+          sameSite:"None", // Cross-origin cookies in production,
+          domain:"https://scatch-backend.onrender.com",
+          path:'/'
         });
 
         return res
