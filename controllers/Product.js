@@ -1,4 +1,3 @@
-
 const productmodel = require("../models/product");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -29,4 +28,19 @@ exports.productdets = async (req, res) => {
         res.status(500).json({ message: "Failed to fetch product details" });
     }
 
+}
+exports.productCategory = async (req, res) => {
+    try {
+        const productCategory = req.params.productCategory;
+        const products = await productmodel.find({ category: productCategory });
+        
+        if (products.length === 0) {
+            return res.status(404).json({ message: "No products found for this category" });
+        }
+        
+        res.status(200).json({ message: "Products fetched successfully", products });
+    } catch (error) {
+        console.error("Error fetching products by category:", error);
+        res.status(500).json({ message: "Failed to fetch products" });
+    }
 }

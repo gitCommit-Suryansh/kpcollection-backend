@@ -17,7 +17,7 @@ connectToDB()
 
 
 const corsOptions = {
-  origin: ['https://scatch-frontend.vercel.app', 'http://localhost:3001'],  // Your frontend URLs
+  origin: ['https://kpcollection-frontend.vercel.app', 'http://localhost:3001'],  // Your frontend URLs
   credentials: true  // Allows cookies to be sent
 };
 
@@ -28,8 +28,8 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 // Middleware for parsing JSON and URL-encoded data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '5mb' })); // Increase the limit
+app.use(express.urlencoded({  limit: '5mb', extended: true }));
 
 // Middleware for parsing cookies
 app.use(cookieparser());

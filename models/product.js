@@ -16,15 +16,6 @@ const productschema=mongoose.Schema({
         type: Number, // Assuming discount is a percentage or numeric value
         default: 0
       },
-      bgcolor: {
-        type: String
-      },
-      panelcolor: {
-        type: String
-      },
-      textcolor: {
-        type: String
-      },
       owner: {
         type: mongoose.Schema.Types.ObjectId, // Assuming owner is a reference to a User collection
         ref: 'owner',
@@ -34,7 +25,17 @@ const productschema=mongoose.Schema({
           type: Buffer, // Store each image as a buffer
           required: true
         }
-      ]
+      ],
+      sizes: {
+        type: [String],
+        default: ['S', 'M', 'L', 'XL', 'XXL'],
+        required: true
+      },
+      category: {
+        type: String,
+        enum: ['Shirt', 'Jeans', 'T-Shirts', 'Lower'], // Restricting categories
+        required: true
+      }
     }
 )
 

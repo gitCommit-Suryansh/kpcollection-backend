@@ -9,7 +9,7 @@ const upload = require("../config/multer-config");
 
 exports.createproduct=async(req,res)=>{
     try {
-        const { name, description, price, discount, bgcolor, panelcolor, textcolor, owner } = req.body;
+        const { name, description, price, discount,owner,sizes,category} = req.body;
     
         // req.files will contain an array of uploaded files
         const images = req.files; // Access uploaded images
@@ -23,10 +23,9 @@ exports.createproduct=async(req,res)=>{
           description,
           price,
           discount,
-          bgcolor,
-          panelcolor,
-          textcolor,
           owner,
+          sizes,
+          category,
           images: imageBuffers, // Store the array of image buffers
         };
         await productmodel.create(product)

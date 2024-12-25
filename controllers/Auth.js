@@ -58,19 +58,15 @@ exports.login = async (req, res) => {
     bcrypt.compare(password, user.password, async (err, result) => {
       if (result) {
         let token =generateToken(user);
-        console.log(token)
-
-        // Set the cookie with proper attributes
+      
         res.cookie("token", token, {
           maxAge: 3600000, // 1 hour
-          httpOnly: false, // Allow JavaScript access to the cookie
-          secure: true, // Ensure the cookie is only sent over HTTPS
-          sameSite: "None", // Allow cross-origin requests
-          domain: ".vercel.app", // Set the domain to your frontend's base domain
-          path: "/", // Cookie will be sent with all requests
+          httpOnly: false,
+          secure: true,
+          sameSite: "None",
+          domain: ".vercel.app",
+          path: "/", 
         });
-        
-
         return res
           .status(200)
           .json({ message: "Logged In Successfully", token: token });
@@ -84,7 +80,7 @@ exports.login = async (req, res) => {
 };
 
 
-exports.ownersignup = async (req, res) => {
+ exports.ownersignup = async (req, res) => {
   const { name, email, password, businessname, contact, gstin } = req.body;
 
   if (req.file) {
@@ -104,7 +100,7 @@ exports.ownersignup = async (req, res) => {
             logo: req.file.buffer,
           });
           console.log(owner);
-          let token = generateToken(user);
+          let token = generateToken(owner);
           res.cookie("token", token, {
             maxAge: 3600000,
             sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
@@ -143,10 +139,12 @@ exports.ownerlogin = async (req, res) => {
 
       // Set a cookie with the token
       res.cookie("token", token, {
-        maxAge: 3600000,
-        sameSite:process.env.NODE_ENV==="production" ? "None" : "Lax",
-        secure:process.env.NODE_ENV==="production",
-        path:"/"
+        maxAge: 3600000, // 1 hour
+        httpOnly: false, // Allow JavaScript access to the cookie
+        secure: true, // Ensure the cookie is only sent over HTTPS
+        sameSite: "None", // Allow cross-origin requests
+        domain: ".vercel.app", // Set the domain to your frontend's base domain
+        path: "/", // Cookie will be sent with all requests
       });
 
       return res
