@@ -11,6 +11,7 @@ const MERCHANT_ID = process.env.MERCHANT_ID;
 const SALT_INDEX = process.env.SALT_INDEX;
 const SALT_KEY = process.env.SALT_KEY;
 const REACT_APP_FRONTEND_URL=process.env.REACT_APP_FRONTEND_URL
+const BACKEND_URL=process.env.BACKEND_URL
 
 const payEndpoint = "/pg/v1/pay";
 const statusEndpoint = "/pg/v1/status";
@@ -35,7 +36,7 @@ exports.pay = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: userId,
       amount: amount,
-      redirectUrl: `/api/redirect-url/${merchantTransactionId}`,
+      redirectUrl: `${BACKEND_URL}/api/redirect-url/${merchantTransactionId}`,
       redirectMode: "POST",
       mobileNumber: mobileNumber,
       paymentInstrument: {
