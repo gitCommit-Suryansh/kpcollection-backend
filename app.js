@@ -5,6 +5,8 @@ const path=require('path')
 const cors=require('cors')
 const cookieparser=require('cookie-parser')
 const expressSession=require('express-session')
+const rateLimit = require('express-rate-limit');
+
 const { connectToDB } = require('./database/connection')
 
 const authroutes=require('./routes/auth')
@@ -12,6 +14,7 @@ const ownerroutes=require('./routes/owner')
 const productroutes=require('./routes/products')
 const cartroutes=require('./routes/cart')
 const orderroutes=require('./routes/order')
+const phoneperoutes=require('./routes/phonepe')
 // connect to the database
 connectToDB()
 
@@ -50,6 +53,7 @@ app.use('/owner',ownerroutes)
 app.use('/products',productroutes)
 app.use('/cart',cartroutes)
 app.use('/order',orderroutes)
+app.use('/api',phoneperoutes)
 
 
 app.listen(process.env.PORT)

@@ -7,7 +7,7 @@ const upload = require("../config/multer-config");
 
 exports.signup = async (req, res) => {
   try {
-    let { name, email, password, street, city, state, postalCode } = req.body;
+    let { name, email, password, street, city, state, postalCode,mobileNumber } = req.body;
 
     const existinguser = await usermodel.findOne({ email });
 
@@ -30,6 +30,7 @@ exports.signup = async (req, res) => {
                 state: state,
                 postalCode: postalCode,
               },
+              mobileNumber
             });
             console.log(createduser);
             return res

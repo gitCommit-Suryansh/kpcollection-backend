@@ -14,6 +14,10 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    mobileNumber:{
+        type:Number,
+        required:true
+    },
     
     cart:[
         {
