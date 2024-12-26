@@ -98,16 +98,6 @@ exports.redirect = async (req, res) => {
       if (response.data) {
         
         const encryptedPaymentDetails = encrypt(JSON.stringify(response.data));
-        console.log(encryptedPaymentDetails)
-        res.cookie("paymentDetails", encryptedPaymentDetails, {
-          httpOnly: false,
-          maxAge: 5 * 60 * 1000,
-          secure: true,
-          sameSite: "None",
-          domain: ".vercel.app",
-          path: "/",
-        });
-        // return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
         return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout?paymentDetails=${encryptedPaymentDetails}`);
       }
     } 
