@@ -101,6 +101,10 @@ exports.redirect = async (req, res) => {
         res.cookie("paymentDetails", encryptedPaymentDetails, {
           httpOnly: false,
           maxAge: 5 * 60 * 1000,
+          secure: true,
+          sameSite: "None",
+          domain: ".vercel.app",
+          path: "/",
         });
         return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
       }
