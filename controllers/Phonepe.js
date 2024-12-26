@@ -35,7 +35,7 @@ exports.pay = async (req, res) => {
       merchantTransactionId: merchantTransactionId,
       merchantUserId: userId,
       amount: amount,
-      redirectUrl: `http://localhost:3000/api/redirect-url/${merchantTransactionId}`,
+      redirectUrl: `${REACT_APP_FRONTEND_URL}/api/redirect-url/${merchantTransactionId}`,
       redirectMode: "POST",
       mobileNumber: mobileNumber,
       paymentInstrument: {
