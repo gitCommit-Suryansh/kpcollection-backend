@@ -98,6 +98,7 @@ exports.redirect = async (req, res) => {
       if (response.data) {
         
         const encryptedPaymentDetails = encrypt(JSON.stringify(response.data));
+        console.log(encryptedPaymentDetails)
         res.cookie("paymentDetails", encryptedPaymentDetails, {
           httpOnly: false,
           maxAge: 5 * 60 * 1000,
