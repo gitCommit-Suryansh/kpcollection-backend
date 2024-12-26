@@ -107,7 +107,8 @@ exports.redirect = async (req, res) => {
           domain: ".vercel.app",
           path: "/",
         });
-        return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
+        // return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
+        return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout?paymentDetails=${encryptedPaymentDetails}`);
       }
     } 
     catch (error) {
