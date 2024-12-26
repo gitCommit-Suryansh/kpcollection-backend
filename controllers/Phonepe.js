@@ -10,11 +10,12 @@ const PHONE_PAY_HOST_URL = process.env.PHONE_PAY_HOST_URL;
 const MERCHANT_ID = process.env.MERCHANT_ID;
 const SALT_INDEX = process.env.SALT_INDEX;
 const SALT_KEY = process.env.SALT_KEY;
+const REACT_APP_FRONTEND_URL=process.env.REACT_APP_FRONTEND_URL
 
 const payEndpoint = "/pg/v1/pay";
 const statusEndpoint = "/pg/v1/status";
 
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY.padEnd(32, '0');
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY.padEnd(32, '0')
 const IV_LENGTH = 16;
 
 function encrypt(text) {
@@ -100,12 +101,12 @@ exports.redirect = async (req, res) => {
           httpOnly: false,
           maxAge: 5 * 60 * 1000,
         });
-        return res.redirect("http://localhost:3001/checkout");
+        return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
       }
     } 
     catch (error) {
       console.error("Error during transaction status fetch:", error);
-      return res.redirect("http://localhost:3001/checkout");
+      return res.redirect(`${REACT_APP_FRONTEND_URL}/checkout`);
     }
   } else {
     res.send("no id found");
