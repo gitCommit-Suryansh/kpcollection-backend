@@ -1,30 +1,40 @@
 const ordermodel = require("../models/order");
 const userModel = require("../models/user");
 
+
 exports.createorder = async (req, res) => {
     try {
-        const { userId, username, products, totalAmount, shippingAddress, paymentMethod,paymentStatus,orderStatus } = req.body.order;
-    
-        
-        const order = new ordermodel({
-            userId,
-            username,
-            products,
-            totalAmount,
-            shippingAddress,
-            paymentMethod,
-            paymentStatus,
-            orderStatus
+        const { userDetails, productDetails, paymentDetails,} = req.body;
+
+        // Create a new order instance
+        const newOrder = new ordermodel({
+            userDetails: {
+                userId: userDetails.userId,
+                email: userDetails.email,
+                name: userDetails.name,
+                mobileNumber: userDetails.mobileNumber,
+                iat: userDetails.iat,
+                address: userDetails.address
+            },
+            productDetails: productDetails.map(item => ({
+                productId: item.productId,
+                size: item.size,
+                quantity: item.quantity,
+            })),
+            paymentDetails: {
+                success: paymentDetails.success,
+                code: paymentDetails.code,
+                message: paymentDetails.message,
+                data: paymentDetails.data,
+            },
         });
-        
 
-        await order.save();
+        // Save the order to the database
+        const savedOrder = await newOrder.save();
 
-        const user = await userModel.findOne({_id:userId});
-        user.orders.push(order._id);
-        await user.save();
-        res.status(200).json({ message: "Order created successfully", order });
+        res.status(201).json({ message: "Order created successfully", order: savedOrder });
     } catch (error) {
+        console.error("Error creating order:", error);
         res.status(500).json({ message: "Failed to create order", error });
     }
 }

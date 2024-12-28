@@ -1,59 +1,27 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
+  userDetails: {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
+    email: { type: String, required: true },
+    name: { type: String, required: true },
+    mobileNumber: { type: Number, required: true },
+    iat: { type: Number, required: true },
+    address: { type: Object, required: true }
   },
-  username: {
-    type: String,
-    required: true
-  },
-  products: [{
-    productId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'product',
-      required: true
+  productDetails: [
+    {
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'product', required: true },
+      size: { type: String, required: true },
+      quantity: { type: Number, required: true },
     },
-    quantity: {
-      type: Number,
-      required: true,
-      default: 1
-    },
-    price: {
-      type: Number,
-      required: true
-    }
-  }],
-  totalAmount: {
-    type: Number,
-    required: true
+  ],
+  paymentDetails: {
+    success: { type: Boolean, required: true },
+    code: { type: String, required: true },
+    message: { type: String, required: true },
+    data: { type: Object, required: true },
   },
-  shippingAddress: {
-    street: String,
-    city: String,
-    state: String,
-    postalCode: String,
-  },
-  paymentMethod: {
-    type: String,
-    required: true
-  },
-  paymentStatus: {
-    type: String,
-    enum: ['Pending', 'Completed', 'Failed'],
-    default: 'Pending'
-  },
-  orderStatus: {
-    type: String,
-    enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
-    default: 'Processing'
-  },
-  orderDate: {
-    type: Date,
-    default: Date.now
-  }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);
