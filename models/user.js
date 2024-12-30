@@ -37,6 +37,13 @@ const userSchema=mongoose.Schema({
             }
         }
     ],
+    wishlist:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"product",
+            required:true
+        }
+    ],
     
     orders:[
         {

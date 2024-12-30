@@ -1,10 +1,5 @@
 const usermodel = require("../models/user");
-const ownermodel = require("../models/owner");
-const productmodel = require("../models/product");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { generateToken } = require("../utils/generatetoken");
-const upload = require("../config/multer-config");
+
 
 
 exports.addtocart = async (req, res) => {
