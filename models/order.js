@@ -22,6 +22,12 @@ const orderSchema = new mongoose.Schema({
     message: { type: String, required: true },
     data: { type: Object, required: true },
   },
+  orderStatus: {
+    type: String,
+    enum: ["Processing", "Shipped", "Delivered","FAILED","PENDING"],
+    required: true,
+    default: "Processing"
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);

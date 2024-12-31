@@ -27,6 +27,9 @@ exports.createorder = async (req, res) => {
                 message: paymentDetails.message,
                 data: paymentDetails.data,
             },
+            orderStatus: paymentDetails.code === 'PAYMENT_SUCCESS' ? 'Processing' :
+                         paymentDetails.code === 'PAYMENT_PENDING' ? 'PENDING' :
+                         'FAILED',
         });
 
         // Save the order to the database
