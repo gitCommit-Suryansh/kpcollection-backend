@@ -5,7 +5,8 @@ const path=require('path')
 const cors=require('cors')
 const cookieparser=require('cookie-parser')
 const expressSession=require('express-session')
-const rateLimit = require('express-rate-limit');
+const fs = require('fs');
+const https = require('https');
 
 const { connectToDB } = require('./database/connection')
 
@@ -58,4 +59,12 @@ app.use('/order',orderroutes)
 app.use('/api',phoneperoutes)
 
 
-app.listen(process.env.PORT)
+const options = {
+  key: fs.readFileSync('/server.key'), // Replace with the path to your private key
+  cert: fs.readFileSync('/server.crt'), // Replace with the path to your certificate
+};
+
+// Start the HTTPS server
+https.createServer(options, app).listen(process.env.PORT, () => {
+  console.log(`Server running on https://69.0.99.45:${process.env.PORT}`);
+});
