@@ -60,8 +60,8 @@ app.use('/api',phoneperoutes)
 
 
 const options = {
-  key: fs.readFileSync('/server.key'), // Replace with the path to your private key
-  cert: fs.readFileSync('/server.crt'), // Replace with the path to your certificate
+  key: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.key'), // Replace with the path to your private key
+  cert: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.crt'), // Replace with the path to your certificate
 };
 
 // Start the HTTPS server
