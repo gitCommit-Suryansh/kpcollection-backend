@@ -59,12 +59,15 @@ app.use('/order',orderroutes)
 app.use('/api',phoneperoutes)
 
 
-const options = {
-  key: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.key'), // Replace with the path to your private key
-  cert: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.crt'), // Replace with the path to your certificate
-};
+// const options = {
+//   key: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.key'), // Replace with the path to your private key
+//   cert: fs.readFileSync('/home/ec2-user/kpcollection-backend/server.crt'), // Replace with the path to your certificate
+// };
 
 // Start the HTTPS server
-https.createServer(options, app).listen(process.env.PORT, () => {
-  console.log(`Server running on https://69.0.99.45:${process.env.PORT}`);
+// https.createServer(options, app).listen(process.env.PORT, () => {
+//   console.log(`Server running on https://69.0.99.45:${process.env.PORT}`);
+// });
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
