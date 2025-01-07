@@ -6,6 +6,7 @@ router
     .post('/createorder',ordercontroller.createorder)
     .get('/getorders/:userId',ordercontroller.getorders)
     .get('/getorderbyid/:orderId',ordercontroller.getorderbyid)
+    .get('/allorders',ordercontroller.allorders)
     
     
 module.exports=router
