@@ -95,4 +95,26 @@ exports.allorders=async(req,res)=>{
         res.status(500).json({message:"Failed to fetch orders",error})
     }
 }
+
+exports.updateStatus = async (req, res) => {
+    const { orderId, status } = req.body;
+  
+    try {
+      const validStatuses = ["Processing", "Shipped", "Delivered","FAILED","PENDING"];
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({ success: false, message: "Invalid status value." });
+      }
+      const updatedOrder = await ordermodel.findByIdAndUpdate(orderId,{ orderStatus: status },{ new: true }
+      );
+  
+      if (!updatedOrder) {
+        return res.status(404).json({ success: false, message: "Order not found." });
+      }
+  
+      res.status(200).json({ success: true, message: "Order status updated successfully.", order: updatedOrder });
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      res.status(500).json({ success: false, message: "An error occurred while updating the order status." });
+    }
+  };
         
