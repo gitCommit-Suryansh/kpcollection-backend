@@ -7,6 +7,7 @@ router
     .get('/getorders/:userId',ordercontroller.getorders)
     .get('/getorderbyid/:orderId',ordercontroller.getorderbyid)
     .get('/allorders',ordercontroller.allorders)
+    .patch('/updateStatus',ordercontroller.updateStatus)
     
     
 module.exports=router
