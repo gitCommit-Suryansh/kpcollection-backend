@@ -1,3 +1,4 @@
+
 const ordermodel = require("../models/order");
 const userModel = require("../models/user");
 
@@ -78,5 +79,20 @@ exports.getorderbyid = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Failed to get order", error });
     }
-}   
+}
+
+exports.allorders=async(req,res)=>{
+    try{
+        const orders=await ordermodel.find();
+        if(orders){
+            return res.status(200).json({message:"Orders fetched Successfully",orders:orders})
+        }else{
+            return res.status(404).json({message:"error fetching orders"})
+        }
+
+    }
+    catch(error){
+        res.status(500).json({message:"Failed to fetch orders",error})
+    }
+}
         

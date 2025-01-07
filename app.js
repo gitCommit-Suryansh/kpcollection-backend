@@ -5,8 +5,6 @@ const path=require('path')
 const cors=require('cors')
 const cookieparser=require('cookie-parser')
 const expressSession=require('express-session')
-const fs = require('fs');
-const https = require('https');
 
 const { connectToDB } = require('./database/connection')
 
@@ -17,7 +15,7 @@ const cartroutes=require('./routes/cart')
 const wishlistroutes=require('./routes/wishlist')
 const orderroutes=require('./routes/order')
 const phoneperoutes=require('./routes/phonepe')
-// connect to the database
+
 connectToDB()
 
 
@@ -28,25 +26,17 @@ const corsOptions = {
 
 // Enable CORS for all routes
 app.use(cors(corsOptions));
-
-// Handle preflight requests
 app.options('*', cors(corsOptions));
-
-// Middleware for parsing JSON and URL-encoded data
-app.use(express.json({ limit: '5mb' })); // Increase the limit
+app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({  limit: '5mb', extended: true }));
-
-// Middleware for parsing cookies
 app.use(cookieparser());
 
-// Session management middleware
 app.use(expressSession({
     resave: false,
     saveUninitialized: false,
     secret: process.env.EXPRESS_SESSION_SECRET
 }));
 
-// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 
