@@ -170,8 +170,9 @@ exports.updateprofile = async (req, res) => {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       updateFields.password = hashedPassword;
     }
-    if (req.file && req.file.buffer) {
-      updateFields.profile = req.file.buffer;
+    // Handle profile image update (Cloudinary)
+    if (req.file && req.file.path) {
+      updateFields.profile = req.file.path; // Save Cloudinary URL instead of buffer
     }
 
     // Check if updateFields is empty

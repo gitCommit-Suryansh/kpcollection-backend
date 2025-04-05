@@ -59,7 +59,7 @@ const userSchema=mongoose.Schema({
         postalCode: String
     },
     profile:{
-        type:Buffer,
+        type:String,
         
     }
 })

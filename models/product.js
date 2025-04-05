@@ -22,7 +22,7 @@ const productschema=mongoose.Schema({
       },
       images: [
         {
-          type: Buffer, // Store each image as a buffer
+          type: String, // Store each image as a buffer
           required: true
         }
       ],
