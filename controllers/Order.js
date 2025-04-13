@@ -14,7 +14,6 @@ exports.createorder = async (req, res) => {
                 email: userDetails.email,
                 name: userDetails.name,
                 mobileNumber: userDetails.mobileNumber,
-                iat: userDetails.iat,
                 address: userDetails.address
             },
             productDetails: productDetails.map(item => ({
@@ -23,13 +22,15 @@ exports.createorder = async (req, res) => {
                 quantity: item.quantity,
             })),
             paymentDetails: {
-                success: paymentDetails.success,
-                code: paymentDetails.code,
-                message: paymentDetails.message,
-                data: paymentDetails.data,
+                success: paymentDetails.state === 'COMPLETED',
+                code: paymentDetails.state,
+                message: paymentDetails.state === 'COMPLETED' ? 'payment was successful' :
+                       paymentDetails.state === 'PENDING' ? 'payment is in pending state' :
+                       'payment failed',
+                data: paymentDetails,
             },
-            orderStatus: paymentDetails.code === 'PAYMENT_SUCCESS' ? 'Processing' :
-                         paymentDetails.code === 'PAYMENT_PENDING' ? 'PENDING' :
+            orderStatus: paymentDetails.state === 'COMPLETED' ? 'Processing' :
+                         paymentDetails.state === 'PENDING' ? 'PENDING' :
                          'FAILED',
         });
 

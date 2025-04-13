@@ -20,7 +20,7 @@ connectToDB()
 
 
 const corsOptions = {
-  origin: ['https://kpcollection-frontend.vercel.app', 'http://localhost:3001','https://kpcollection.store','https://www.kpcollection.store'],
+  origin: ['https://kpcollection-frontend.vercel.app', 'http://localhost:3000','https://kpcollection.store','https://www.kpcollection.store'],
   credentials: true  // Allows cookies to be sent
 };
 
